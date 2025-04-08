@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Object Detection with TensorFlow.js</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+    canvas { border: 1px solid #ccc; margin-top: 10px; }
+    #loader { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Object Detection with TensorFlow.js</h1>
+  <p>Select an image to detect objects:</p>
+  <input type="file" id="imageUpload" accept="image/*">
+  <div id="loader">Loading model, please wait...</div>
+  <br>
+  <canvas id="canvas"></canvas>
+
+  <!-- TensorFlow.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <!-- coco-ssd model -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <script>
+    let model;
+    const imageUpload = document.getElementById('imageUpload');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const loader = document.getElementById('loader');
+
+    // Load the model when the page loads
+    window.onload = async () => {
+      loader.style.display = 'block';
+      model = await cocoSsd.load();
+      loader.style.display = 'none';
+      console.log('Model loaded.');
+    };
+
+    imageUpload.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // Create an image element to load the selected file
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = async () => {
+        // Adjust canvas size to match the image
+        canvas.width = img.width;
+        canvas.height = img.height;
+        // Draw image onto canvas
+        ctx.drawImage(img, 0, 0);
+        
+        // Run object detection
+        const predictions = await model.detect(img);
+        console.log('Predictions: ', predictions);
+        
+        // Draw bounding boxes and labels
+        predictions.forEach(prediction => {
+          const [x, y, width, height] = prediction.bbox;
+          ctx.strokeStyle = "#00FFFF";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(x, y, width, height);
+          
+          ctx.fillStyle = "#00FFFF";
+          ctx.font = "16px Arial";
+          ctx.fillText(`${prediction.class} (${(prediction.score * 100).toFixed(1)}%)`, x, y > 20 ? y - 5 : y + 20);
+        });
+      };
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Bubble Pop Game&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: 'Arial', sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #f0f8ff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>overflow: hidden;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#game-container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: relative;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 100vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>overflow: hidden;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.bubble {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 10px rgba(0,0,0,0.2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>user-select: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation: float 8s infinite ease-in-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@keyframes float {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>0%, 100% { transform: translateY(0) translateX(0); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>25% { transform: translateY(-20px) translateX(10px); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>50% { transform: translateY(10px) translateX(-15px); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>75% { transform: translateY(-15px) translateX(5px); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.pop-animation {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation: pop 0.3s ease-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>pointer-events: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@keyframes pop {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>0% { transform: scale(1); opacity: 1; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>100% { transform: scale(1.5); opacity: 0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#score-display {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 24px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #333;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: rgba(255, 255, 255, 0.7);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: 100;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#time-display {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>right: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 24px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #333;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: rgba(255, 255, 255, 0.7);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: 100;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#start-screen, #game-over-screen {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>flex-direction: column;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: rgba(0, 0, 0, 0.7);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: 200;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#game-over-screen {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h1 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 48px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #4CAF50;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 15px 32px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-decoration: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: inline-block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 24px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 10px 2px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: background-color 0.3s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #45a049;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#final-score {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 36px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 20px 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #FFD700;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.score-popup {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>pointer-events: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation: scoreFloat 1s ease-out forwards;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@keyframes scoreFloat {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>0% { opacity: 1; transform: translateY(0); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>100% { opacity: 0; transform: translateY(-50px); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="game-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="score-display"&gt;Score: 0&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="time-display"&gt;Time: 60s&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="start-screen"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h1&gt;Bubble Pop!&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;Pop as many bubbles as you can before time runs out!&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;Larger bubbles = more points&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button id="start-button"&gt;Start Game&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="game-over-screen"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h1&gt;Game Over!&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div id="final-score"&gt;Your Score: 0&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button id="restart-button"&gt;Play Again&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', function() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Game variables</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let score = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let timeLeft = 60;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let gameRunning = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let gameTimer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let bubbleSpawnRate = 1000; // ms between bubble spawns</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let spawnTimer;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// DOM elements</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const gameContainer = document.getElementById('game-container');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const scoreDisplay = document.getElementById('score-display');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const timeDisplay = document.getElementById('time-display');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const startScreen = document.getElementById('start-screen');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const gameOverScreen = document.getElementById('game-over-screen');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const finalScore = document.getElementById('final-score');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const startButton = document.getElementById('start-button');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const restartButton = document.getElementById('restart-button');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Bubble colors</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bubbleColors = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'#FF5733', '#33FF57', '#3357FF', '#FF33F5',<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'#F5FF33', '#33FFF5', '#FF3333', '#33FF33'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>];</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Event listeners</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>startButton.addEventListener('click', startGame);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>restartButton.addEventListener('click', startGame);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Start the game</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function startGame() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Reset game state</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>score = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timeLeft = 60;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scoreDisplay.textContent = 'Score: 0';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timeDisplay.textContent = 'Time: 60s';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Clear any existing bubbles</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const bubbles = document.querySelectorAll('.bubble');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubbles.forEach(bubble =&gt; bubble.remove());</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Hide start/game over screens</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>startScreen.style.display = 'none';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameOverScreen.style.display = 'none';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Start game</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameRunning = true;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Start timers</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameTimer = setInterval(updateTime, 1000);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>spawnTimer = setInterval(createBubble, bubbleSpawnRate);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Create initial bubbles</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>for (let i = 0; i &lt; 10; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>createBubble();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Update timer</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function updateTime() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timeLeft--;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timeDisplay.textContent = `Time: ${timeLeft}s`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (timeLeft &lt;= 0) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>endGame();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Increase spawn rate as time progresses</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (timeLeft % 10 === 0 &amp;&amp; bubbleSpawnRate &gt; 200) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>bubbleSpawnRate -= 100;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>clearInterval(spawnTimer);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>spawnTimer = setInterval(createBubble, bubbleSpawnRate);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Create a bubble</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function createBubble() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (!gameRunning) return;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const bubble = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.className = 'bubble';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Random size (larger bubbles worth more points)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const size = Math.random() * 80 + 40; // 40-120px</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.style.width = `${size}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.style.height = `${size}px`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Calculate points based on size (smaller bubbles worth more)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const points = Math.floor((140 - size) / 10);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.dataset.points = points;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.textContent = points;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Random position</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const maxX = window.innerWidth - size;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const maxY = window.innerHeight - size;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.style.left = `${Math.random() * maxX}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.style.top = `${Math.random() * maxY}px`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Random color</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const colorIndex = Math.floor(Math.random() * bubbleColors.length);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.style.backgroundColor = bubbleColors[colorIndex];</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Random animation delay for floating effect</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.style.animationDelay = `${Math.random() * 2}s`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Add click event</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.addEventListener('click', popBubble);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Add to game</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameContainer.appendChild(bubble);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Auto-remove bubble after some time to keep screen from getting too cluttered</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (bubble.parentNode === gameContainer) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>bubble.remove();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}, 8000);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Pop a bubble</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function popBubble(e) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (!gameRunning) return;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const bubble = e.target;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const points = parseInt(bubble.dataset.points);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Add points to score</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>score += points;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scoreDisplay.textContent = `Score: ${score}`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Create score popup</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const scorePopup = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scorePopup.className = 'score-popup';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scorePopup.textContent = `+${points}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scorePopup.style.left = `${bubble.offsetLeft + parseInt(bubble.style.width) / 2}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scorePopup.style.top = `${bubble.offsetTop}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>scorePopup.style.color = bubble.style.backgroundColor;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameContainer.appendChild(scorePopup);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; scorePopup.remove(), 1000);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Play pop animation and remove</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubble.classList.add('pop-animation');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; bubble.remove(), 300);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Create a new bubble to replace the popped one</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>createBubble();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// End the game</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function endGame() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameRunning = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>clearInterval(gameTimer);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>clearInterval(spawnTimer);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>finalScore.textContent = `Your Score: ${score}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>gameOverScreen.style.display = 'flex';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Resize handler</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>window.addEventListener('resize', function() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Adjust bubble positions if they're outside the viewport</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const bubbles = document.querySelectorAll('.bubble');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bubbles.forEach(bubble =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const rect = bubble.getBoundingClientRect();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const size = parseInt(bubble.style.width);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (rect.right &gt; window.innerWidth) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>bubble.style.left = `${window.innerWidth - size}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (rect.bottom &gt; window.innerHeight) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>bubble.style.top = `${window.innerHeight - size}px`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
